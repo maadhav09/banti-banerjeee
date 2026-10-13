@@ -29,10 +29,10 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,transparent_0%,rgba(10,10,11,0.55)_70%,#0a0a0b_100%)]" />
       </div>
 
-      {/* Portrait: top half on mobile, right side on desktop */}
+      {/* Portrait: fixed band at top on mobile, right side on desktop */}
       <motion.div
         style={{ y: yImg, scale: scaleImg }}
-        className="absolute inset-x-0 top-0 h-[60svh] md:inset-y-0 md:left-auto md:right-0 md:h-auto md:w-[56%] lg:w-[50%]"
+        className="absolute inset-x-0 top-0 h-[40svh] md:inset-y-0 md:left-auto md:right-0 md:h-auto md:w-[56%] lg:w-[50%]"
       >
         <motion.img
           src={IMAGES.hero}
@@ -40,12 +40,12 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 1.12, filter: 'blur(14px) contrast(1) brightness(1)' }}
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px) contrast(1.08) brightness(1.04)' }}
           transition={{ duration: 1.5, ease: EASE, delay: 0.1 }}
-          className="h-full w-full object-cover object-[50%_20%] md:object-left hero-igl-mask opacity-95"
+          className="h-full w-full object-cover object-[8%_30%] md:object-left hero-igl-mask opacity-95"
         />
       </motion.div>
 
-      {/* Mobile-only dark gradient so text is readable */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-[68svh] bg-gradient-to-t from-ink via-ink/95 to-transparent md:hidden" />
+      {/* Mobile-only fade at the bottom edge of the photo */}
+      <div className="pointer-events-none absolute inset-x-0 top-[30svh] z-[5] h-[11svh] bg-gradient-to-t from-ink to-transparent md:hidden" />
 
       {/* IGL winner tag card */}
       <motion.div
@@ -62,16 +62,16 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Text layer */}
+      {/* Text layer: starts BELOW the photo on mobile */}
       <motion.div
         style={{ y: yText, opacity: fade }}
-        className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 min-h-[100svh] flex flex-col justify-end pb-10 pt-20 md:justify-center md:pb-0"
+        className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 min-h-[100svh] flex flex-col justify-start pt-[43svh] pb-10 md:justify-center md:pt-20 md:pb-0"
       >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="flex items-center gap-3 mb-3 sm:mb-5"
+          className="flex items-center gap-3 mb-2 sm:mb-5"
         >
           <span className="h-px w-8 sm:w-10 bg-orange" />
           <span className="eyebrow !tracking-[0.25em] sm:!tracking-[0.3em] !text-[0.7rem] sm:!text-xs">
@@ -84,16 +84,16 @@ export default function Hero() {
           start={0.35}
           stagger={0.14}
           className="font-impact leading-[0.92] tracking-[-0.01em]"
-          lineClass="text-[17vw] sm:text-[16vw] md:text-[12vw] lg:text-[10.5rem] text-ivory drop-shadow-[0_8px_40px_rgba(0,0,0,0.8)] pb-[0.08em]"
+          lineClass="text-[15vw] sm:text-[16vw] md:text-[12vw] lg:text-[10.5rem] text-ivory drop-shadow-[0_8px_40px_rgba(0,0,0,0.8)] pb-[0.08em]"
         />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.8, ease: EASE }}
-          className="mt-5 sm:mt-8 max-w-xl"
+          className="mt-4 sm:mt-8 max-w-xl"
         >
-          <p className="font-display text-xl sm:text-2xl text-ivory">
+          <p className="font-display text-lg sm:text-2xl text-ivory">
             Winner — <span className="text-orange italic">India's Got Latent</span>, Episode 10.
           </p>
           <p className="mt-2 sm:mt-3 text-ivory/80 sm:text-ivory/60 text-sm sm:text-base leading-relaxed">
@@ -101,7 +101,7 @@ export default function Hero() {
             custom-built for your stage.
           </p>
 
-          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3">
+          <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row gap-3">
             <button
               onClick={() => scrollToId('booking')}
               data-testid="hero-book-btn"
@@ -121,7 +121,7 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll cue: hidden on phones so it doesn't overlap buttons */}
+      {/* Scroll cue: hidden on phones */}
       <motion.button
         onClick={() => scrollToId('meet')}
         initial={{ opacity: 0 }}
