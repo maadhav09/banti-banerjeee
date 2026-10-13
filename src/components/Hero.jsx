@@ -29,10 +29,10 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,transparent_0%,rgba(10,10,11,0.55)_70%,#0a0a0b_100%)]" />
       </div>
 
-      {/* Portrait */}
+      {/* Portrait: top half on mobile, right side on desktop */}
       <motion.div
         style={{ y: yImg, scale: scaleImg }}
-        className="absolute inset-y-0 right-0 w-full md:w-[56%] lg:w-[50%]"
+        className="absolute inset-x-0 top-0 h-[60svh] md:inset-y-0 md:left-auto md:right-0 md:h-auto md:w-[56%] lg:w-[50%]"
       >
         <motion.img
           src={IMAGES.hero}
@@ -40,9 +40,12 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 1.12, filter: 'blur(14px) contrast(1) brightness(1)' }}
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px) contrast(1.08) brightness(1.04)' }}
           transition={{ duration: 1.5, ease: EASE, delay: 0.1 }}
-          className="h-full w-full object-cover object-left hero-igl-mask opacity-95"
+          className="h-full w-full object-cover object-[50%_20%] md:object-left hero-igl-mask opacity-95"
         />
       </motion.div>
+
+      {/* Mobile-only dark gradient so text is readable */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-[68svh] bg-gradient-to-t from-ink via-ink/95 to-transparent md:hidden" />
 
       {/* IGL winner tag card */}
       <motion.div
@@ -62,16 +65,18 @@ export default function Hero() {
       {/* Text layer */}
       <motion.div
         style={{ y: yText, opacity: fade }}
-        className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 min-h-[100svh] flex flex-col justify-center pt-20"
+        className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 min-h-[100svh] flex flex-col justify-end pb-10 pt-20 md:justify-center md:pb-0"
       >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="flex items-center gap-3 mb-5"
+          className="flex items-center gap-3 mb-3 sm:mb-5"
         >
-          <span className="h-px w-10 bg-orange" />
-          <span className="eyebrow !tracking-[0.3em]">Stand-up Comedian · Mumbai</span>
+          <span className="h-px w-8 sm:w-10 bg-orange" />
+          <span className="eyebrow !tracking-[0.25em] sm:!tracking-[0.3em] !text-[0.7rem] sm:!text-xs">
+            Stand-up Comedian · Mumbai
+          </span>
         </motion.div>
 
         <MaskLines
@@ -79,24 +84,24 @@ export default function Hero() {
           start={0.35}
           stagger={0.14}
           className="font-impact leading-[0.92] tracking-[-0.01em]"
-          lineClass="text-[21vw] sm:text-[16vw] md:text-[12vw] lg:text-[10.5rem] text-ivory drop-shadow-[0_8px_40px_rgba(0,0,0,0.6)] pb-[0.08em]"
+          lineClass="text-[17vw] sm:text-[16vw] md:text-[12vw] lg:text-[10.5rem] text-ivory drop-shadow-[0_8px_40px_rgba(0,0,0,0.8)] pb-[0.08em]"
         />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.8, ease: EASE }}
-          className="mt-10 sm:mt-8 max-w-xl"
+          className="mt-5 sm:mt-8 max-w-xl"
         >
-          <p className="font-display text-xl sm:text-2xl text-ivory/90">
+          <p className="font-display text-xl sm:text-2xl text-ivory">
             Winner — <span className="text-orange italic">India's Got Latent</span>, Episode 10.
           </p>
-          <p className="mt-3 text-ivory/60 text-sm sm:text-base leading-relaxed">
+          <p className="mt-2 sm:mt-3 text-ivory/80 sm:text-ivory/60 text-sm sm:text-base leading-relaxed">
             Sharp storytelling and observational comedy, rooted in Bengali &amp; Bihari homes —
             custom-built for your stage.
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3">
             <button
               onClick={() => scrollToId('booking')}
               data-testid="hero-book-btn"
@@ -108,7 +113,7 @@ export default function Hero() {
             <button
               onClick={() => scrollToId('watch')}
               data-testid="hero-watch-btn"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-ivory/25 px-8 py-3.5 font-semibold text-ivory transition-colors hover:border-orange hover:text-orange"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-ivory/25 bg-ink/40 px-8 py-3.5 font-semibold text-ivory transition-colors hover:border-orange hover:text-orange"
             >
               Watch Her Comedy
             </button>
@@ -116,13 +121,13 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll cue */}
+      {/* Scroll cue: hidden on phones so it doesn't overlap buttons */}
       <motion.button
         onClick={() => scrollToId('meet')}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6, duration: 0.8 }}
-        className="absolute left-1/2 -translate-x-1/2 bottom-6 z-20 flex flex-col items-center gap-2 text-ivory/50 hover:text-orange transition-colors"
+        className="absolute left-1/2 -translate-x-1/2 bottom-6 z-20 hidden sm:flex flex-col items-center gap-2 text-ivory/50 hover:text-orange transition-colors"
         data-testid="hero-scroll-cue"
         aria-label="Scroll to content"
       >
